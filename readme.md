@@ -37,6 +37,19 @@ This script contains functions for file operations such as reading from Excel fi
 - `save_file(prompt)`: Opens a file dialog to save a file.
 - `write_to_template(data_dict_lwx, data_dict_lwn, LWX_Cost, LWN_Cost, output_path, departments_lwx, departments_lwn)`: Writes the usage data to the Excel template.
 
+### `setup.bat`
+
+This batch file sets up the environment for running the scripts. It performs the following tasks:
+- Prompts the user to select a directory.
+- Copies necessary files to the selected directory.
+- Creates and activates a virtual environment.
+- Installs required Python modules.
+- Deactivates the virtual environment.
+
+### `run.bat`
+
+This batch file runs the `main.py` script within the virtual environment.
+
 ## Input Files
 
 ### Ingram Micro Cost Report File
@@ -52,15 +65,32 @@ This script contains functions for file operations such as reading from Excel fi
 
 ## Usage
 
-1. Run the `main.py` script.
-2. Follow the prompts to select the Ingram Micro cost report file, LWX JSON configuration file, and LWN JSON configuration file.
-3. Specify the output file name for the generated report.
-4. The script will process the data and save the results to the specified output file.
+### Setup
+
+1. Run the `setup.bat` file.
+2. Follow the prompts to select the directory where the files will be copied.
+3. The script will create a virtual environment, install the required modules, and copy the necessary files to the selected directory.
+
+### Running the Script
+
+1. Navigate to the directory where the files were copied during setup.
+2. Run the `run.bat` file.
+3. Follow the prompts to select the Ingram Micro cost report file, LWX JSON configuration file, and LWN JSON configuration file.
+4. Specify the output file name for the generated report.
+5. The script will process the data and save the results to the specified output file.
 
 ## Example
 
+### Setup
+
 ```sh
-python main.py
+setup.bat
+```
+
+### Running the Script
+
+```sh
+run.bat
 ```
 
 Follow the prompts to select the required files and specify the output file name.
