@@ -13,11 +13,15 @@ if "%INSTALL_DIR%"=="" (
 REM Change to the selected directory
 cd /d "%INSTALL_DIR%"
 
-REM Copy template.xlsx and test_ui.py to the selected directory
+REM Copy template.xlsx and other necessary files to the selected directory
 echo Copying files to the selected directory...
 copy "%~dp0template.xlsx" "%INSTALL_DIR%"
 copy "%~dp0main.py" "%INSTALL_DIR%"
 copy "%~dp0run.bat" "%INSTALL_DIR%"
+copy "%~dp0logging_setup.py" "%INSTALL_DIR%"
+copy "%~dp0file_operations.py" "%INSTALL_DIR%"
+copy "%~dp0extract_quota_usage.py" "%INSTALL_DIR%"
+copy "%~dp0select_directory.py" "%INSTALL_DIR%"
 
 REM Copy as_built_doc-v2.35.0 directory to the selected directory
 xcopy "%~dp0as_built_doc-v2.35.0" "%INSTALL_DIR%\as_built_doc-v2.35.0" /E /I /Y
