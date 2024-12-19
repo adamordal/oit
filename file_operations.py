@@ -6,6 +6,7 @@ from tkinter import filedialog, messagebox
 import tkinter as tk
 
 def read_xlsx_to_dict(file_path, sheet_name, key_column, value_start_column):
+    # Read data from an Excel file and return it as a dictionary
     workbook = openpyxl.load_workbook(file_path, data_only=True)
     sheet = workbook[sheet_name]  # Access the sheet by name
     data = {}
@@ -21,6 +22,7 @@ def read_xlsx_to_dict(file_path, sheet_name, key_column, value_start_column):
     return data
 
 def browse_file(prompt, filetypes):
+    # Open a file dialog to browse for a file
     root = tk.Tk()
     root.withdraw()  # Hide the root window
     file_path = filedialog.askopenfilename(title=prompt, filetypes=filetypes)
@@ -31,6 +33,7 @@ def browse_file(prompt, filetypes):
     return file_path
 
 def save_file(prompt):
+    # Open a file dialog to save a file
     root = tk.Tk()
     root.withdraw()  # Hide the root window
     file_path = filedialog.asksaveasfilename(title=prompt, defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])

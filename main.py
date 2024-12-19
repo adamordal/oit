@@ -4,6 +4,7 @@ from logging_setup import setup_logging
 from file_operations import read_xlsx_to_dict, browse_file, save_file, write_to_template
 
 def calculate_totals(departments, quota_usage_data):
+    # Calculate total files and capacity for each department
     results = {}
     for department, sub_departments in departments.items():
         total_files = 0

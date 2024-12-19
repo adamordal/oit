@@ -9,6 +9,7 @@ LOG = None
 DEFAULT_LOG_FORMAT = '%(asctime)s - %(module)s|%(funcName)s - %(levelname)s [%(lineno)d] %(message)s'
 
 def add_parser_options(parser):
+    # Add command line options for JSON file and encoding
     parser.add_option("--json_file", "-j",
                       default=None,
                       help="Path and file name of the JSON config data.\n"
@@ -64,10 +65,12 @@ def main():
         parser.error('You must specify an input JSON configuration file')
 
     try:
+        # Load the JSON configuration file
         with open(options.json_file, encoding=options.json_encoding) as json_data:
             json_cfg = json.load(json_data)
             print("Loaded JSON configuration successfully.")
     except UnicodeDecodeError as e:
+        # Handle encoding errors
         LOG.error(
             "JSON input file could not be read using UTF-8 character encoding. Try running with"
             " --json_encoding=latin-1 or --json_encoding=ascii command line options."
@@ -75,9 +78,11 @@ def main():
         )
         sys.exit(7)
     except:
+        # Handle other errors
         LOG.exception("Could not load or parse: %s" % options.json_file)
         sys.exit(2)
 
+    # Extract quota usage data
     quota_usage = extract_quota_usage(json_cfg)
     
     # Print the extracted quota usage data to the console
