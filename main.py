@@ -1,5 +1,5 @@
 import json
-from extract_quota_usage import extract_quota_usage
+from extract_quota_usage import extract_quota_usage, run as extract_quota_usage_run
 from logging_setup import setup_logging
 from file_operations import read_xlsx_to_dict, browse_file, save_file, write_to_template
 

@@ -46,7 +46,7 @@ def extract_quota_usage(json_cfg):
         })
     return quota_usage_data
 
-def main():
+def run():
     global LOG
     # Create our command line parser
     parser = optparse.OptionParser()
@@ -89,4 +89,4 @@ def main():
     print(json.dumps(quota_usage, ensure_ascii=False, indent=4))
 
 if __name__ == "__main__":
-    main()
+    run()
