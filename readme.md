@@ -3,6 +3,58 @@
 ## Overview
 
 This project contains a set of Python scripts designed to process quota usage data from JSON configuration files and generate a report in an Excel template. The main functionalities include reading data from Excel and JSON files, calculating totals for different departments, and writing the results to an Excel template.
+## Usage
+
+### Setup
+
+1. Run the `setup.bat` file.
+2. Follow the prompts to select the directory where the files will be copied.
+3. The script will create a virtual environment, install the required modules, and copy the necessary files to the selected directory.
+
+### Running the Script
+
+1. Navigate to the directory where the files were copied during setup.
+2. Run the `run.bat` file.
+3. Follow the prompts to select the Ingram Micro cost report file, LWX JSON configuration file, and LWN JSON configuration file.
+4. Specify the output file name for the generated report.
+5. The script will process the data and save the results to the specified output file.
+
+## Example
+
+### Setup
+
+```sh
+setup.bat
+```
+
+### Running the Script
+
+```sh
+run.bat
+```
+
+Follow the prompts to select the required files and specify the output file name.
+
+## Dependencies
+
+- `openpyxl`
+- `tkinter`
+- `json`
+- `logging`
+- `optparse`
+
+## Input Files
+
+### Ingram Micro Cost Report File
+
+- **Format**: Excel (.xlsx)
+- **Sheet Name**: `Rating Report`
+- **Columns**: The script reads data starting from the second row and uses the first column as keys and subsequent columns as values.
+
+### LWX and LWN JSON Configuration Files
+
+- **Format**: JSON (.json)
+- **Structure**: The JSON files should contain quota usage data under the `stats -> smartquotas -> usage` path.
 
 ## Files
 
@@ -50,55 +102,4 @@ This batch file sets up the environment for running the scripts. It performs the
 
 This batch file runs the `main.py` script within the virtual environment.
 
-## Input Files
 
-### Ingram Micro Cost Report File
-
-- **Format**: Excel (.xlsx)
-- **Sheet Name**: `Rating Report`
-- **Columns**: The script reads data starting from the second row and uses the first column as keys and subsequent columns as values.
-
-### LWX and LWN JSON Configuration Files
-
-- **Format**: JSON (.json)
-- **Structure**: The JSON files should contain quota usage data under the `stats -> smartquotas -> usage` path.
-
-## Usage
-
-### Setup
-
-1. Run the `setup.bat` file.
-2. Follow the prompts to select the directory where the files will be copied.
-3. The script will create a virtual environment, install the required modules, and copy the necessary files to the selected directory.
-
-### Running the Script
-
-1. Navigate to the directory where the files were copied during setup.
-2. Run the `run.bat` file.
-3. Follow the prompts to select the Ingram Micro cost report file, LWX JSON configuration file, and LWN JSON configuration file.
-4. Specify the output file name for the generated report.
-5. The script will process the data and save the results to the specified output file.
-
-## Example
-
-### Setup
-
-```sh
-setup.bat
-```
-
-### Running the Script
-
-```sh
-run.bat
-```
-
-Follow the prompts to select the required files and specify the output file name.
-
-## Dependencies
-
-- `openpyxl`
-- `tkinter`
-- `json`
-- `logging`
-- `optparse`
