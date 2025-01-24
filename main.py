@@ -91,10 +91,8 @@ def main():
         lwn_final_data = remove_test_entries_from_gov(lwn_dict_without_other)
         calculated_data = calc_department_data(lwn_final_data)
 
-
         # Calculate totals for LWX and LWN
         data_dict_lwx = calculate_totals(departments_lwx, quota_usage_data_lwx)
-
 
         # Prompt the user to specify the output file name
         output_path = save_file("Save the output file as")
