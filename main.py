@@ -2,6 +2,7 @@ import json
 from extract_quota_usage import extract_quota_usage, run as extract_quota_usage_run
 from logging_setup import setup_logging
 from file_operations import read_xlsx_to_dict, browse_file, save_file, write_to_template
+from lwn_operations import read_csv, assign_vmc_agency_rows, reassign_other_agency_rows,remove_test_entries_from_gov,calc_department_data
 
 def calculate_totals(departments, quota_usage_data):
     # Calculate total files and capacity for each department
@@ -54,12 +55,13 @@ def main():
         }
 
         # Define departments for LWN
-        departments_lwn = {
-            'OIT': ['OIT'],
-            'CDHS': ['CDHS'],
-            'DORA': ['DORA'],
-            'CDOT': ['CDOT']
-        }
+
+        criteria = [
+        'vmc', 'cbms', 'cda', 'cdec', 'ecea', 'chs', 'hc', 'cdhs', 'cdle', 
+        'cdor', 'cdot', 'cdphe', 'cst', 'cdps', 'dnr', 'dmva', 'doc', 'dola', 
+        'dpa', 'dora', 'gov', 'hcpf', 'lottery', 'oit'
+    ]
+        
 
         # Prompt the user to select the Ingram Micro cost report file
         ingram_file_path = browse_file("Select the Ingram Micro cost report file", [("Excel files", "*.xlsx")])
@@ -80,25 +82,25 @@ def main():
         # Extract LWX quota usage data
         quota_usage_data_lwx = extract_quota_usage(json_cfg_lwx)
 
-        # Prompt the user to select the LWN JSON configuration file
-        json_file_path_lwn = browse_file("Select the LWN JSON configuration file", [("JSON files", "*.json")])
+        # Prompt the user to select the LWN CSV  file
+        csv_file_path_lwn = browse_file("Select the Commvault CSV file", [("CSV files", "*.csv")])
 
-        # Load the LWN JSON configuration
-        with open(json_file_path_lwn, 'r', encoding='utf8') as json_file:
-            json_cfg_lwn = json.load(json_file)
+        lwn_dict = read_csv(csv_file_path_lwn)
+        lwn_dict_with_vmc = assign_vmc_agency_rows(lwn_dict)
+        lwn_dict_without_other = reassign_other_agency_rows(lwn_dict_with_vmc)
+        lwn_final_data = remove_test_entries_from_gov(lwn_dict_without_other)
+        calculated_data = calc_department_data(lwn_final_data)
 
-        # Extract LWN quota usage data
-        quota_usage_data_lwn = extract_quota_usage(json_cfg_lwn)
 
         # Calculate totals for LWX and LWN
         data_dict_lwx = calculate_totals(departments_lwx, quota_usage_data_lwx)
-        data_dict_lwn = calculate_totals(departments_lwn, quota_usage_data_lwn)
+
 
         # Prompt the user to specify the output file name
         output_path = save_file("Save the output file as")
 
         # Write data to the template
-        write_to_template(data_dict_lwx, data_dict_lwn, LWX_Cost, LWN_Cost, output_path, departments_lwx, departments_lwn)
+        write_to_template(data_dict_lwx, LWX_Cost, LWN_Cost, output_path, departments_lwx, lwn_final_data, calculated_data)
     except ValueError as e:
         LOG.error(e)
 
