@@ -22,6 +22,7 @@ copy "%~dp0logging_setup.py" "%INSTALL_DIR%"
 copy "%~dp0file_operations.py" "%INSTALL_DIR%"
 copy "%~dp0extract_quota_usage.py" "%INSTALL_DIR%"
 copy "%~dp0select_directory.py" "%INSTALL_DIR%"
+copy "%~dp0lwn_operations.py" "%INSTALL_DIR%"
 
 REM Copy as_built_doc-v2.35.0 directory to the selected directory
 xcopy "%~dp0as_built_doc-v2.35.0" "%INSTALL_DIR%\as_built_doc-v2.35.0" /E /I /Y
