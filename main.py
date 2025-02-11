@@ -53,24 +53,16 @@ def main():
             'CDHS': ['CDHS', 'CDHSHIPAA'],
             'Legislative': ['Legislative']
         }
+      
 
-        # Define departments for LWN
-
-        criteria = [
-        'vmc', 'cbms', 'cda', 'cdec', 'ecea', 'chs', 'hc', 'cdhs', 'cdle', 
-        'cdor', 'cdot', 'cdphe', 'cst', 'cdps', 'dnr', 'dmva', 'doc', 'dola', 
-        'dpa', 'dora', 'gov', 'hcpf', 'lottery', 'oit'
-    ]
-        
-
-        # Prompt the user to select the Ingram Micro cost report file
-        ingram_file_path = browse_file("Select the Ingram Micro cost report file", [("Excel files", "*.xlsx")])
+        # Prompt the user to select the Dell APEX cost report file
+        ingram_file_path = browse_file("Dell Apex Invoice Report", [("Excel files", "*.xlsx")])
 
         # Load the Ingram Micro cost report
-        sheet_name = 'Rating Report'
-        data_dict = read_xlsx_to_dict(ingram_file_path, sheet_name, key_column=1, value_start_column=2)
-        LWX_Cost = data_dict['lwx400'][20]
-        LWN_Cost = data_dict['lwnl400'][20]
+        sheet_name = 'Monthly Usage Invoice Details'
+        data_dict = read_xlsx_to_dict(ingram_file_path, sheet_name)
+        LWX_Cost = data_dict['PowerScale Sched 24 Group ᶜ']['Total (USD)']
+        LWN_Cost = data_dict['PowerScale Sched 25 Group ᶜ']['Total (USD)']
 
         # Prompt the user to select the LWX JSON configuration file
         json_file_path_lwx = browse_file("Select the LWX JSON configuration file", [("JSON files", "*.json")])

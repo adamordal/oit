@@ -5,21 +5,25 @@ from tkinter import filedialog, messagebox
 import tkinter as tk
 
 
-def read_xlsx_to_dict(file_path, sheet_name, key_column, value_start_column):
-    # Read data from an Excel file and return it as a dictionary
-    workbook = openpyxl.load_workbook(file_path, data_only=True)
-    sheet = workbook[sheet_name]  # Access the sheet by name
-    data = {}
+def read_xlsx_to_dict(file_path, sheet_name):
+    # Load the Apex cost report
+    wb = openpyxl.load_workbook(file_path, data_only=True)
+    sheet = wb[sheet_name]
 
-    for row in sheet.iter_rows(min_row=2, max_row=101, values_only=True):
-        key = row[key_column]
-        if key is None:
-            continue
-        key = key.lower()
-        values = row[value_start_column:]
-        data[key] = values
+    # Read the header starting from C16
+    header = [cell.value for cell in sheet[16][2:]]
 
-    return data
+    # Read the data starting from B17
+    data_dict = {}
+    for row in sheet.iter_rows(min_row=17, min_col=2, max_col=len(header) + 2, values_only=True):
+        key = row[0]
+        values = row[1:]
+        data_dict[key] = {header[i]: values[i] for i in range(len(header))}
+
+
+
+
+    return data_dict
 
 def browse_file(prompt, filetypes):
     # Open a file dialog to browse for a file
