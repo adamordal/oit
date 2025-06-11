@@ -21,10 +21,20 @@ def calculate_totals(departments, quota_usage_data):
                     total_files += quota["Files"]
                     total_capacity += quota["Physical"]
 
+        # Helper to convert bytes to TB with rounding rules
+        def bytes_to_tb(val):
+            if val == 0:
+                return 0
+            tb = val / (1024 ** 4)
+            if tb > 0 and tb < 0.01:
+                return 0.01
+            else:
+                return round(tb, 2)
+
         # Store the results in the dictionary
         results[department] = {
             'total_files': total_files,
-            'total_capacity': total_capacity
+            'total_capacity_tb': bytes_to_tb(total_capacity)
         }
     return results
 

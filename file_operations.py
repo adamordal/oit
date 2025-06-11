@@ -85,7 +85,7 @@ def write_to_template(data_dict_lwx, LWX_Cost, LWN_Cost, output_path, department
             template_sheet[usage_cell] = "N/A"
         else:
             total_files = data_dict_lwx[dept]['total_files']
-            usage = data_dict_lwx[dept]['total_capacity']
+            usage = data_dict_lwx[dept]['total_capacity_tb']
             template_sheet[files_cell] = total_files
             template_sheet[usage_cell] = usage
 
